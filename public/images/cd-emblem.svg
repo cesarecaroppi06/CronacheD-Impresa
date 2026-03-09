@@ -1,0 +1,21 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">CD Cronache d'Impresa</title>
+  <desc id="desc">Monogramma CD in stile editoriale all'interno di un cerchio.</desc>
+  <defs>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <radialGradient id="paper" cx="45%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="246" fill="url(#paper)"/>
+  <circle cx="256" cy="256" r="246" fill="none" stroke="url(#ring)" stroke-width="18"/>
+  <circle cx="256" cy="256" r="224" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+
+  <text x="118" y="302" fill="#17315c" font-family="'Playfair Display','Times New Roman',serif" font-size="204" font-weight="700" letter-spacing="2">CD</text>
+  <path d="M195 318 L351 163" stroke="#17315c" stroke-width="12" stroke-linecap="round"/>
+</svg>

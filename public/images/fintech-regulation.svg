@@ -1,0 +1,6 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0f172a"/>
+  <path d="M0 620C220 520 360 520 540 620C730 725 900 720 1120 600C1300 500 1450 500 1600 565V900H0V620Z" fill="#1e40af"/>
+  <path d="M0 700C220 610 380 610 560 700C740 790 920 785 1130 675C1310 582 1450 580 1600 645V900H0V700Z" fill="#2563eb"/>
+  <text x="120" y="190" fill="#ffffff" font-family="Georgia, serif" font-size="72" font-weight="700">Credit &amp; Regulation</text>
+</svg>
