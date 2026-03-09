@@ -30,6 +30,17 @@ export default function ContattiPage() {
             <p className="mt-2 text-sm leading-relaxed text-slate-600">
               Orari: Lun - Ven, 9:00 - 18:30
             </p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              LinkedIn:{" "}
+              <a
+                href={siteConfig.social.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium text-accent hover:underline"
+              >
+                Pagina aziendale CD - Cronache d&apos;Impresa
+              </a>
+            </p>
           </aside>
 
           <form className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm" action="#" method="post">

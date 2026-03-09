@@ -7,7 +7,7 @@ export const siteConfig = {
   ogImage: "/images/hero-governance.svg",
   email: "redazione@cdcronachedimpresa.it",
   social: {
-    linkedin: "https://www.linkedin.com",
+    linkedin: "https://www.linkedin.com/company/cd-cronache-d-impresa?_l=en_US",
     twitter: "https://twitter.com",
     youtube: "https://www.youtube.com",
   },
