@@ -218,7 +218,7 @@ export async function syncLinkedInToSanity(limit = 10): Promise<LinkedInSyncResu
     throw new Error("LinkedIn non configurato. Imposta LINKEDIN_ACCESS_TOKEN e LINKEDIN_ORGANIZATION_URN.");
   }
 
-  if (!isSanityWriteConfigured) {
+  if (!isSanityWriteConfigured()) {
     throw new Error("Sanity write non configurato. Imposta SANITY_API_WRITE_TOKEN.");
   }
 
@@ -311,7 +311,7 @@ export async function maybeAutoSyncLinkedInToSanity(): Promise<LinkedInAutoSyncR
     return { triggered: false, reason: "disabled" };
   }
 
-  if (!isLinkedInConfigured || !isSanityWriteConfigured) {
+  if (!isLinkedInConfigured || !isSanityWriteConfigured()) {
     return { triggered: false, reason: "not_configured" };
   }
 

@@ -4,6 +4,7 @@ import { isEditorAuthorized } from "@/lib/editor-auth";
 import { getSanityWriteClient, isSanityWriteConfigured } from "@/lib/sanity";
 
 const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
+const MAX_BODY_BYTES = 12 * 1024 * 1024;
 const ALLOWED_IMAGE_TYPES = new Set([
   "image/jpeg",
   "image/jpg",
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, message: "Unauthorized" }, { status: 401 });
   }
 
-  if (!isSanityWriteConfigured) {
+  if (!isSanityWriteConfigured()) {
     return NextResponse.json(
       {
         ok: false,
@@ -46,6 +47,17 @@ export async function POST(request: NextRequest) {
       },
       { status: 500 },
     );
+  }
+
+  const contentLength = request.headers.get("content-length");
+  if (contentLength) {
+    const bytes = Number.parseInt(contentLength, 10);
+    if (Number.isFinite(bytes) && bytes > MAX_BODY_BYTES) {
+      return NextResponse.json(
+        { ok: false, message: "Immagine troppo grande (max 8 MB)." },
+        { status: 413 },
+      );
+    }
   }
 
   const formData = await request.formData().catch(() => null);

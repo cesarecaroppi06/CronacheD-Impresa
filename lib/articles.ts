@@ -124,7 +124,7 @@ function getMarkdownArticles(): Article[] {
 }
 
 async function fetchAllArticlesFromSource(): Promise<Article[]> {
-  if (isSanityConfigured) {
+  if (isSanityConfigured()) {
     const sanityArticlesRaw = await sanityFetch<SanityArticle[]>(allArticlesQuery);
 
     if (sanityArticlesRaw && sanityArticlesRaw.length > 0) {
@@ -152,7 +152,7 @@ export async function getAllArticles(): Promise<Article[]> {
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  if (isSanityConfigured) {
+  if (isSanityConfigured()) {
     const sanityArticleRaw = await sanityFetch<SanityArticle>(articleBySlugQuery, { slug });
 
     if (sanityArticleRaw) {

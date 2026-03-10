@@ -43,6 +43,7 @@ const editableArticleQuery = `*[_type == "article" && slug.current == $slug][0]{
   imageUrl,
   content
 }`;
+const MAX_EDITOR_BODY_BYTES = 2 * 1024 * 1024;
 
 function validatePayload(payload: ArticlePayload): string | null {
   if (!payload.title?.trim()) return "Titolo obbligatorio";
@@ -69,7 +70,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ ok: false, message: "Unauthorized" }, { status: 401 });
   }
 
-  if (!isSanityConfigured) {
+  if (!isSanityConfigured()) {
     return NextResponse.json({ ok: false, message: "Sanity non configurato" }, { status: 500 });
   }
 
@@ -92,7 +93,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ ok: false, message: "Unauthorized" }, { status: 401 });
   }
 
-  if (!isSanityWriteConfigured) {
+  if (!isSanityWriteConfigured()) {
     return NextResponse.json(
       {
         ok: false,
@@ -100,6 +101,17 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       },
       { status: 500 },
     );
+  }
+
+  const contentLength = request.headers.get("content-length");
+  if (contentLength) {
+    const bytes = Number.parseInt(contentLength, 10);
+    if (Number.isFinite(bytes) && bytes > MAX_EDITOR_BODY_BYTES) {
+      return NextResponse.json(
+        { ok: false, message: "Contenuto troppo grande (max 2 MB)." },
+        { status: 413 },
+      );
+    }
   }
 
   const slug = slugify(params.slug || "");
@@ -177,7 +189,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ ok: false, message: "Unauthorized" }, { status: 401 });
   }
 
-  if (!isSanityWriteConfigured) {
+  if (!isSanityWriteConfigured()) {
     return NextResponse.json(
       {
         ok: false,
@@ -185,6 +197,17 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       },
       { status: 500 },
     );
+  }
+
+  const contentLength = request.headers.get("content-length");
+  if (contentLength) {
+    const bytes = Number.parseInt(contentLength, 10);
+    if (Number.isFinite(bytes) && bytes > MAX_EDITOR_BODY_BYTES) {
+      return NextResponse.json(
+        { ok: false, message: "Contenuto troppo grande (max 2 MB)." },
+        { status: 413 },
+      );
+    }
   }
 
   const slug = slugify(params.slug || "");

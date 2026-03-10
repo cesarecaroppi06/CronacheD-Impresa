@@ -46,6 +46,7 @@ const editableArticlesQuery = `*[_type == "article" && defined(slug.current)] | 
   category,
   date
 }`;
+const MAX_EDITOR_BODY_BYTES = 2 * 1024 * 1024;
 
 function validatePayload(payload: ArticlePayload): string | null {
   if (!payload.title?.trim()) return "Titolo obbligatorio";
@@ -101,7 +102,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ ok: false, message: "Unauthorized" }, { status: 401 });
   }
 
-  if (!isSanityConfigured) {
+  if (!isSanityConfigured()) {
     return NextResponse.json({ ok: true, articles: [] });
   }
 
@@ -114,7 +115,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, message: "Unauthorized" }, { status: 401 });
   }
 
-  if (!isSanityWriteConfigured) {
+  if (!isSanityWriteConfigured()) {
     return NextResponse.json(
       {
         ok: false,
@@ -122,6 +123,17 @@ export async function POST(request: NextRequest) {
       },
       { status: 500 },
     );
+  }
+
+  const contentLength = request.headers.get("content-length");
+  if (contentLength) {
+    const bytes = Number.parseInt(contentLength, 10);
+    if (Number.isFinite(bytes) && bytes > MAX_EDITOR_BODY_BYTES) {
+      return NextResponse.json(
+        { ok: false, message: "Contenuto troppo grande (max 2 MB)." },
+        { status: 413 },
+      );
+    }
   }
 
   const payload = (await request.json().catch(() => ({}))) as ArticlePayload;
