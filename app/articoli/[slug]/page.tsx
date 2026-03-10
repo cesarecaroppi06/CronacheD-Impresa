@@ -80,7 +80,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       name: siteConfig.name,
       logo: {
         "@type": "ImageObject",
-        url: `${siteConfig.url}/images/cd-emblem.svg`,
+        url: toAbsoluteUrl(siteConfig.brandLogoPath),
       },
     },
     mainEntityOfPage: {

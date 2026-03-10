@@ -5,6 +5,9 @@ export const siteConfig = {
     "Piattaforma editoriale indipendente dedicata a impresa, economia, innovazione e management.",
   url: "https://www.cdcronachedimpresa.it",
   ogImage: "/images/hero-governance.svg",
+  brandLogoPath: process.env.NEXT_PUBLIC_BRAND_LOGO_PATH || "/images/logo-brand-circle.png",
+  brandLogoFallbackPath: "/images/cd-emblem.svg",
+  brandLogoAlt: "Logo CD Cronache d'Impresa",
   email: "redazione@cdcronachedimpresa.it",
   social: {
     linkedin: "https://www.linkedin.com/company/cd-cronache-d-impresa?_l=en_US",

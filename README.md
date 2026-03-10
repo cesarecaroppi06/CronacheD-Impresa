@@ -45,6 +45,24 @@ Optional (Vercel cron auth):
 
 - `CRON_SECRET`
 
+Optional (logo personalizzato):
+
+- `NEXT_PUBLIC_BRAND_LOGO_PATH` (default: `/images/logo-brand-circle.png`)
+
+## Logo del brand (formato cerchio)
+
+1. Metti il file del logo in `public/images/`.
+2. Nome consigliato pronto all'uso: `logo-brand-circle.png`.
+3. Se vuoi usare un altro nome/formato (es. `.svg`), imposta `NEXT_PUBLIC_BRAND_LOGO_PATH` in `.env.local`.
+
+Esempio:
+
+```env
+NEXT_PUBLIC_BRAND_LOGO_PATH=/images/mio-logo.png
+```
+
+Il componente applica automaticamente un badge circolare elegante con bordo grafico, e usa fallback su `/images/cd-emblem.svg` se il file non viene trovato.
+
 ## LinkedIn -> sito automatico
 
 - Manuale: `POST /api/integrations/linkedin/sync` con header `x-editor-key`.
